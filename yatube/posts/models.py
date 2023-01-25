@@ -8,9 +8,17 @@ User = get_user_model()
 
 class Group(models.Model):
     """Модель групп."""
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True)
-    description = models.TextField()
+    title = models.CharField(
+        max_length=200,
+        verbose_name='Название'
+    )
+    slug = models.SlugField(
+        unique=True,
+        verbose_name='Фрагмент URL'
+    )
+    description = models.TextField(
+        verbose_name='Описание'
+    )
 
     class Meta:
         verbose_name_plural = 'Группы'
@@ -42,6 +50,7 @@ class Post(models.Model):
         null=True,
         on_delete=models.SET_NULL,
         related_name='posts',
+        verbose_name='Группы',
     )
 
     class Meta:

@@ -3,28 +3,24 @@ from django.shortcuts import get_object_or_404, render
 from .models import Group, Post
 
 
-def index(request):
-    """Выводим на страницу первые 10 записей постов."""
+OUTPUT_POSTS = 10
 
-    posts = Post.objects.select_related('author')[:10]
+
+def index(request):
+    """Выводим на страницу первые записи постов."""
+    posts = Post.objects.select_related('author')[OUTPUT_POSTS]
     template = 'posts/index.html'
     context = {'posts': posts}
     return render(request, template, context)
 
 
 def group_posts(request, slug):
-    """Выводим на страницу первые 10 записей групп."""
-
+    """Выводим на страницу первые записи групп."""
     group = get_object_or_404(Group, slug=slug)
-    posts = group.posts.select_related('author')[:10]
+    posts = group.posts.select_related('author')[OUTPUT_POSTS]
     template = 'posts/group_list.html'
     context = {
         'group': group,
         'posts': posts
     }
     return render(request, template, context)
-
-
-def post_detail(request, pk):
-    template = 'posts/post_detail.html'
-    return render(request, template)

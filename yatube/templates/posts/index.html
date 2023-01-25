@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
-  {% block content %}
-<h1>
-{% block title %}
-  {{ title }}
-{% endblock %}
+{% block content %}
+  <h1>
+    Последние обновления на сайте 
+  {% block title %}
+    <title> Последние обновления на сайте </title> 
+  {% endblock %}
 </h1>
 {% for post in posts %}
   <article>
@@ -15,6 +16,7 @@
         Дата публикации: {{ post.pub_date|date:'d E Y' }}
       </li>
     </ul>
+  </article>
   <article>
     <p>{{ post.text|linebreaks }}</p>
     {% if post.group %}
@@ -23,5 +25,6 @@
     {% if not forloop.last %}
       <hr>
     {% endif %}
+  </article>
   {% endfor %}
 {% endblock %}
